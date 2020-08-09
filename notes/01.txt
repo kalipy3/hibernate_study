@@ -64,4 +64,39 @@ Hibernate缓存特点：
                     比较一级缓冲区内容和对应的快照区内容是否一样，如果不一样，把一级缓存区内容更新到数据库(磁盘),如果一样，则不会更新到数据库
 
 
+事务
+    不考虑隔离性产生的问题
+        1.脏读
+        2.不可重复读
+        3.虚读
+
+    设置事务隔离级别
+        1.mysql默认隔离级别 repeatable read
+
+     代码规范：
+     try {
+        开启事务
+        提交事务
+     } catch() {
+        回滚事务
+     } finally {
+        关闭
+     }
+
+Hibernate绑定session:
+1.session类似于threadLocal和jdbc的connection
+
+2.帮实现与本地线程绑定session
+
+3.获取与本地线程绑定的session
+    1.在hibernate核心配置文件中配置
+        <property name="hibernate.current_session_context_class">thread</property>
+
+    2.调用sessionFactory里面的方法得到
+        sessionFactory.getCurrentSession();
+
+     3.注意：
+        获取与本地线程绑定的session的时候，手动关闭session会报错，因为线程会自动帮我们关闭
+
+
 
