@@ -35,4 +35,15 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "uid = " + getUid() +
+            ", username = " + getUsername() +
+            ", password = " + getPassword() +
+            ", address = " + getAddress() +
+            "}";
+    }
+
 }
