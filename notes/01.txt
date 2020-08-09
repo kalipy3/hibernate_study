@@ -13,3 +13,39 @@
         为什么不建议基本数据类型?
             基本数据类型在表示学生是0分还是没来参加考试时，不好表示，但是包装类可以：0表示0分，null表示没来。
 
+
+实体类对象状态：
+    瞬时态：对象里面没有id值，对象与session没有关联
+        User u = new User();
+        u.setUsername("jack");
+        u.setPassword("111");
+
+    持久态：对象有id，有与session关联
+        User user = session.get(User.class, 1);
+
+    托管态：有id，无关联
+        User user = new User();
+        user.setUid(3);
+
+Hibernate的一级缓存：
+    为什么使用缓存？
+        1.数据库本身是文件系统，使用流方式操作文件效率低
+        2.把数据缓存到内存，直接读取内存的数据效率高
+
+Hibernate缓存特点：
+    一级缓存
+        1.默认打开
+        2.一级缓存使用范围，是session范围，从session创建到session关闭
+        3.一级缓存中，数据必须是持久态数据
+
+    二级缓存
+        1.已被redis淘汰
+        2.默认不打开
+        3.范围是sessionFactory范围
+
+
+验证一级缓存的存在：
+    1.根据uid = 1查询，返回对象
+    1.再次根据uid = 1查询，返回对象
+
+
