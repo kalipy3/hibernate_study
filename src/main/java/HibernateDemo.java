@@ -3,6 +3,9 @@
  *
  */
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,22 +15,24 @@ import org.hibernate.cfg.Configuration;
 public class HibernateDemo {
 
     public static void testGet() {
+        SessionFactory sessionFactory = null;
         Session session = null;
         Transaction tx = null;
 
         try {
+            sessionFactory = HibernateUtils.getSessionFactory();
             //与本地线程绑定的session
             session = HibernateUtils.getSessionObject();
             //开启事务
             tx = session.beginTransaction();
             
-            //根据uid =2查询
-            User user = session.get(User.class, 2);//23行
-            user.setUsername("hanser");
-            System.out.println("----------------------");
-            
-            session.save(user);
-            //int i = 10/0;
+            Query query = session.createQuery("from User");
+
+            List<User> list = query.list();
+            for (User user : list) {
+                System.out.println(user);
+            }
+
             tx.commit();
 
         } catch(Exception e) {
@@ -36,6 +41,7 @@ public class HibernateDemo {
             tx.rollback();
         } finally {
             session.close();
+            sessionFactory.close();
         }
 
     }

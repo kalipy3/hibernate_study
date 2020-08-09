@@ -99,4 +99,17 @@ Hibernate绑定session:
         获取与本地线程绑定的session的时候，手动关闭session会报错，因为线程会自动帮我们关闭
 
 
+Hibernate的api：
+Query对象：
+    1.不用写sql语句，但是写hql语句
+        a)hql和sql区别：
+            sql操作表和表字段
+            hql操作实体类和属性
+    2.查询所有 hql语句
+        form 实体类名称
+
+    3.Query对象使用
+        a)创建Query对象
+        b)调用Query里面方法得到结果
+
 
