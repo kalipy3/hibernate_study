@@ -5,6 +5,7 @@
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,10 +26,10 @@ public class HibernateDemo {
             session = HibernateUtils.getSessionObject();
             //开启事务
             tx = session.beginTransaction();
-            
-            Query query = session.createQuery("from User");
-
-            List<User> list = query.list();
+           
+            //criteria对象
+            Criteria criteria = session.createCriteria(User.class);
+            List<User> list = criteria.list();
             for (User user : list) {
                 System.out.println(user);
             }
