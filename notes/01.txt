@@ -48,4 +48,20 @@ Hibernate缓存特点：
     1.根据uid = 1查询，返回对象
     1.再次根据uid = 1查询，返回对象
 
+一级缓存特点：
+    1.持久态自动更新数据库(磁盘)
+        a):
+            User user = session.get(User.class, 7);//1line
+            user.setUsername("hanser");//2line
+        b)执行过程：
+            1line:
+                1.把返回的user持久态对象放到一级缓存中 --> 2.把user对象放到一级缓存对应的快照区中
+            2line:
+                3.修改user对象的username的值set为hanser,同时修改1中一级缓存区内容为hanser(不会修改快照区)
+
+            最后提交事务：
+                比较：
+                    比较一级缓冲区内容和对应的快照区内容是否一样，如果不一样，把一级缓存区内容更新到数据库(磁盘),如果一样，则不会更新到数据库
+
+
 
